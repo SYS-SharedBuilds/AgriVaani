@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+xgboost
+pydantic
+psycopg2-binary
+google-cloud-aiplatform
+python-dotenv
+pytest
