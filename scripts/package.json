@@ -1,0 +1,18 @@
+{
+  "name": "agrivaani-scripts",
+  "version": "1.0.0",
+  "description": "Seed script for AgriVaani",
+  "scripts": {
+    "seed": "ts-node seed_demo_data.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "pg": "^8.11.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@types/pg": "^8.11.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
