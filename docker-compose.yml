@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-agrivaani}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-agrivaani_dev}
+      POSTGRES_DB: ${POSTGRES_DB:-agrivaani}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  orchestration-api:
+    build:
+      context: ./apps/orchestration-api
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://${POSTGRES_USER:-agrivaani}:${POSTGRES_PASSWORD:-agrivaani_dev}@db:5432/${POSTGRES_DB:-agrivaani}
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN}
+      - TWILIO_PHONE_NUMBER=${TWILIO_PHONE_NUMBER}
+      - EXOTEL_API_KEY=${EXOTEL_API_KEY}
+      - EXOTEL_API_TOKEN=${EXOTEL_API_TOKEN}
+      - BHASHINI_API_KEY=${BHASHINI_API_KEY}
+      - GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
+    depends_on:
+      - db
+    volumes:
+      - ./apps/orchestration-api:/app
+      - /app/node_modules
+    command: npm run dev
+
+  recommendation-service:
+    build:
+      context: ./apps/recommendation-service
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-agrivaani}:${POSTGRES_PASSWORD:-agrivaani_dev}@db:5432/${POSTGRES_DB:-agrivaani}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - EARTH_ENGINE_TOKEN=${EARTH_ENGINE_TOKEN}
+      - IMD_API_KEY=${IMD_API_KEY}
+    depends_on:
+      - db
+    volumes:
+      - ./apps/recommendation-service:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  officer-dashboard:
+    build:
+      context: ./apps/officer-dashboard
+    ports:
+      - "3001:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:3000
+      - NEXT_PUBLIC_FIREBASE_API_KEY=${NEXT_PUBLIC_FIREBASE_API_KEY}
+      - NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=${NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN}
+      - NEXT_PUBLIC_FIREBASE_PROJECT_ID=${NEXT_PUBLIC_FIREBASE_PROJECT_ID}
+    volumes:
+      - ./apps/officer-dashboard:/app
+      - /app/node_modules
+    command: npm run dev
+
+volumes:
+  postgres_data:
