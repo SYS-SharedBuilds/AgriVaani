@@ -4,6 +4,7 @@ import FarmerSimChat from '../components/FarmerSimChat';
 import KisanMitraAssistant from '../components/KisanMitraAssistant';
 
 export default function Home() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [cases, setCases] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [resolvingId, setResolvingId] = useState<string | null>(null);
@@ -19,7 +20,7 @@ export default function Home() {
       } else {
          setCases([]);
       }
-    } catch (error) {
+    } catch {
       console.error('Failed to fetch cases, using mock data');
       setCases([
         { id: '1', farmer_name: 'Ramesh Kumar', district: 'Medak', severity_estimate: 'high', ai_diagnosis: 'Severe Leaf Blight', created_at: new Date().toISOString() },
@@ -42,7 +43,7 @@ export default function Home() {
          body: JSON.stringify({ status: 'resolved', officer_notes: 'Reviewed and advised farmer.' })
        });
        await fetchCases(); // Refresh
-     } catch (err) {
+     } catch {
        console.log('Resolve failed');
      } finally {
        setResolvingId(null);
