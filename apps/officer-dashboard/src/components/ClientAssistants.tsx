@@ -3,7 +3,8 @@ import { useState } from 'react';
 import KisanMitraAssistant from './KisanMitraAssistant';
 import FarmerSimChat from './FarmerSimChat';
 
-export default function ClientAssistants({ officerName: _o, district: _d }: { officerName: string, district: string }) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function ClientAssistants({ officerName, district }: { officerName: string, district: string }) {
   const [isKisanMitraOpen, setIsKisanMitraOpen] = useState(false);
   const [isFarmerSimOpen, setIsFarmerSimOpen] = useState(false);
 
