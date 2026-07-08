@@ -67,7 +67,7 @@ AgriVaani is three connected AI systems, reachable entirely by **voice IVR and S
    │                    Data Layer                    │               │
    │  Earth Engine · Soil Health Card · CGWB          │               │
    │  IMD / weather · Field hardware (GSM/GPRS + SMS) │               │
-   └───────────────────────┬──────────────────────────┘               │
+   └────────────────────────┬─────────────────────────┘               │
                             ▼                                         │
                 ┌────────────────────────────┐                        │
                 │ PostgreSQL · Firestore ·   │◄───────────────────────┘
@@ -90,7 +90,7 @@ AgriVaani is three connected AI systems, reachable entirely by **voice IVR and S
 │    └─ spare                                fuses forecast + soil signal
 │  safety: 30-min max runtime,               → voice + SMS alert
 │  local manual override always wins         → optional auto-actuation
-└─────────────────┘                            (opt-in, critical-only)
+└────────────────────┘                         (opt-in, critical-only)
 ```
 
 ---
