@@ -177,7 +177,7 @@ export default function TriagePage() {
               <button
                 onClick={confirmResolve}
                 disabled={!resolutionNotes.trim()}
-                style={{ fontSize: 14, fontWeight: 500, color: 'white', background: resolutionNotes.trim() ? 'var(--forest)' : 'rgba(27,67,50,0.4)', border: 'none', borderRadius: 10, padding: '8px 16px', cursor: resolutionNotes.trim() ? 'pointer' : 'not-allowed', transition: 'background 0.2s' }}
+                style={{ fontSize: 14, fontWeight: 500, color: resolutionNotes.trim() ? 'white' : 'var(--ink-soft)', background: resolutionNotes.trim() ? 'var(--forest)' : 'rgba(27,67,50,0.1)', border: 'none', borderRadius: 10, padding: '8px 16px', cursor: resolutionNotes.trim() ? 'pointer' : 'not-allowed', transition: 'all 0.2s' }}
               >
                 Confirm Resolve
               </button>
