@@ -29,6 +29,8 @@ function initials(name: string) {
 export default function TriagePage() {
   const [cases, setCases] = useState<HealthCase[]>([]);
   const [loading, setLoading] = useState(true);
+  const [resolvingCase, setResolvingCase] = useState<HealthCase | null>(null);
+  const [resolutionNotes, setResolutionNotes] = useState('');
   const district = 'Medak';
 
   useEffect(() => {
@@ -58,13 +60,19 @@ export default function TriagePage() {
       .finally(() => setLoading(false));
   }, []);
 
-  async function resolveCase(id: string) {
+  async function confirmResolve() {
+    if (!resolvingCase || !resolutionNotes.trim()) return;
+    
+    const id = resolvingCase.id;
     setCases((prev) => prev.map((c) => (c.id === id ? { ...c, status: 'resolved' } : c)));
+    setResolvingCase(null);
+    setResolutionNotes('');
+    
     try {
       await fetch(`http://localhost:3000/v1/rsk/cases/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: 'resolved' }),
+        body: JSON.stringify({ status: 'resolved', officer_notes: resolutionNotes }),
       });
     } catch {
       // optimistic UI already applied
@@ -128,7 +136,7 @@ export default function TriagePage() {
                 </span>
                 <span style={{ fontSize: 13.5, color: 'var(--ink)' }}>{c.diagnosis}</span>
                 <button
-                  onClick={() => resolveCase(c.id)}
+                  onClick={() => { setResolvingCase(c); setResolutionNotes(''); }}
                   style={{ justifySelf: 'end', fontSize: 13, fontWeight: 500, color: 'var(--forest)', background: 'rgba(27,67,50,0.08)', border: '1px solid rgba(27,67,50,0.2)', borderRadius: 10, padding: '7px 14px', cursor: 'pointer' }}
                 >
                   Resolve
@@ -138,6 +146,45 @@ export default function TriagePage() {
           })
         )}
       </section>
+      {resolvingCase && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(4px)' }}>
+          <div className="glass" style={{ width: '100%', maxWidth: 500, padding: '1.5rem', background: '#f8faf9', borderRadius: 20 }}>
+            <h3 style={{ fontSize: 18, fontWeight: 600, color: 'var(--forest)', margin: '0 0 1rem' }}>Resolve Case: {resolvingCase.farmerName}</h3>
+            
+            <div style={{ fontSize: 13.5, color: 'var(--ink)', marginBottom: '1rem', background: 'rgba(27,67,50,0.06)', padding: '1rem', borderRadius: 12 }}>
+              <div style={{ marginBottom: 8 }}><strong>District:</strong> {resolvingCase.district}</div>
+              <div style={{ marginBottom: 8 }}><strong>Severity:</strong> <span style={{ textTransform: 'capitalize' }}>{resolvingCase.severity}</span></div>
+              <div><strong>Diagnosis:</strong> {resolvingCase.diagnosis}</div>
+            </div>
+
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--forest)', marginBottom: '0.5rem' }}>
+              Resolution Provided *
+            </label>
+            <textarea
+              value={resolutionNotes}
+              onChange={(e) => setResolutionNotes(e.target.value)}
+              placeholder="Detail the advice or action taken..."
+              style={{ width: '100%', minHeight: 100, padding: '0.75rem', fontSize: 14, borderRadius: 12, border: '1px solid rgba(27,67,50,0.2)', marginBottom: '1rem', outline: 'none', background: 'white', resize: 'vertical' }}
+            />
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
+              <button
+                onClick={() => setResolvingCase(null)}
+                style={{ fontSize: 14, fontWeight: 500, color: 'var(--ink-soft)', background: 'transparent', border: 'none', padding: '8px 16px', cursor: 'pointer' }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmResolve}
+                disabled={!resolutionNotes.trim()}
+                style={{ fontSize: 14, fontWeight: 500, color: 'white', background: resolutionNotes.trim() ? 'var(--forest)' : 'rgba(27,67,50,0.4)', border: 'none', borderRadius: 10, padding: '8px 16px', cursor: resolutionNotes.trim() ? 'pointer' : 'not-allowed', transition: 'background 0.2s' }}
+              >
+                Confirm Resolve
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
