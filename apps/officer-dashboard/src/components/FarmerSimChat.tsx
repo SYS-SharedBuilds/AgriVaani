@@ -19,11 +19,51 @@ export default function FarmerSimChat({ isOpen, onClose, onEscalated, farmerId, 
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const recognitionRef = useRef<any>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = false;
+      
+      recognitionRef.current.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setInput((prev) => prev + (prev ? ' ' : '') + transcript);
+        setIsRecording(false);
+      };
+      
+      recognitionRef.current.onerror = (event: any) => {
+        console.error('Speech recognition error', event.error);
+        setIsRecording(false);
+      };
+
+      recognitionRef.current.onend = () => {
+        setIsRecording(false);
+      };
+    }
+  }, []);
+
+  const toggleRecording = () => {
+    if (isRecording) {
+      recognitionRef.current?.stop();
+      setIsRecording(false);
+    } else {
+      if (recognitionRef.current) {
+        recognitionRef.current.start();
+        setIsRecording(true);
+      } else {
+        alert("Your browser does not support speech recognition. Please use Chrome.");
+      }
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -139,19 +179,27 @@ export default function FarmerSimChat({ isOpen, onClose, onEscalated, farmerId, 
 
       {/* Input Area */}
       <div className="p-4 border-t border-white/30 bg-white/20">
-        <form onSubmit={handleSubmit} className="flex gap-2 relative">
+        <form onSubmit={handleSubmit} className="flex gap-2 relative items-center">
+          <button
+            type="button"
+            onClick={toggleRecording}
+            className={`w-10 h-10 rounded-full flex flex-shrink-0 items-center justify-center transition-colors ${isRecording ? 'bg-error text-white animate-pulse' : 'bg-white/50 border border-white/60 text-primary hover:bg-white/80'}`}
+            disabled={loading}
+          >
+            <span className="material-symbols-outlined text-[18px]">mic</span>
+          </button>
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Type a voice message..."
+            placeholder={isRecording ? "Listening..." : "Type or speak a message..."}
             className="flex-1 bg-white/50 border border-white/60 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
             disabled={loading}
           />
           <button
             type="submit"
             disabled={loading || !input.trim()}
-            className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center hover:bg-primary/90 disabled:opacity-50 transition-colors"
+            className="w-10 h-10 rounded-full bg-primary text-white flex flex-shrink-0 items-center justify-center hover:bg-primary/90 disabled:opacity-50 transition-colors"
           >
             <span className="material-symbols-outlined text-[18px]">send</span>
           </button>

@@ -1,0 +1,12 @@
+{
+  "name": "agrivaani-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm install --prefix apps/orchestration-api && npm install --prefix apps/officer-dashboard",
+    "dev": "concurrently \"npm run dev --prefix apps/orchestration-api\" \"npm run dev --prefix apps/officer-dashboard\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
