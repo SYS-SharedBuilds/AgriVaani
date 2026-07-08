@@ -21,6 +21,7 @@ export default function FarmerSimChat({ isOpen, onClose, onEscalated, farmerId, 
   const [loading, setLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
 
   useEffect(() => {
@@ -29,17 +30,20 @@ export default function FarmerSimChat({ isOpen, onClose, onEscalated, farmerId, 
 
   useEffect(() => {
     if (typeof window !== 'undefined' && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
       recognitionRef.current = new SpeechRecognition();
       recognitionRef.current.continuous = false;
       recognitionRef.current.interimResults = false;
       
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       recognitionRef.current.onresult = (event: any) => {
         const transcript = event.results[0][0].transcript;
         setInput((prev) => prev + (prev ? ' ' : '') + transcript);
         setIsRecording(false);
       };
       
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       recognitionRef.current.onerror = (event: any) => {
         console.error('Speech recognition error', event.error);
         setIsRecording(false);
@@ -95,7 +99,7 @@ export default function FarmerSimChat({ isOpen, onClose, onEscalated, farmerId, 
 
       const needsExpert = data.confidence < 0.6 || data.severity === 'high';
       
-      let replyText = needsExpert 
+      const replyText = needsExpert 
         ? `We've detected a potentially severe issue (${data.diagnosis}). Escalating to Rythu Seva Kendra officer immediately.`
         : `Based on your description, this looks like ${data.diagnosis}. Recommendation: ${data.self_care}`;
 
@@ -121,7 +125,7 @@ export default function FarmerSimChat({ isOpen, onClose, onEscalated, farmerId, 
         onEscalated();
       }
 
-    } catch (err) {
+    } catch {
       setMessages(prev => [...prev, { role: 'system', content: 'Connection error. Please try again later.' }]);
     } finally {
       setLoading(false);

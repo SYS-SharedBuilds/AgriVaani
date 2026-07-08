@@ -34,7 +34,7 @@ export default function KisanMitraAssistant({ isOpen, onClose }: { isOpen: boole
       const reply = `I've analyzed the queue. Based on your query "${userMsg}", you should focus on the high severity cases in Medak district first.`;
       
       setMessages(prev => [...prev, { role: 'system', content: reply }]);
-    } catch (err) {
+    } catch {
       setMessages(prev => [...prev, { role: 'system', content: 'Connection error.' }]);
     } finally {
       setLoading(false);
