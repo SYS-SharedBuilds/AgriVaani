@@ -1,5 +1,0 @@
-{
-  "framework": "nextjs",
-  "buildCommand": "cd apps/officer-dashboard && npm install && npm run build",
-  "outputDirectory": "apps/officer-dashboard/.next"
-}
