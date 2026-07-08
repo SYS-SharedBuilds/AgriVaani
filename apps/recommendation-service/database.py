@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://agrivaani:agrivaani_dev@localhost:5432/agrivaani")
+DATABASE_URL = os.getenv("NEON_CONNECTION_STRING", "postgresql://neondb_owner:npg_4dpv7scZWqaS@ep-jolly-dust-aos44038-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require")
 
 def get_db_connection():
     return psycopg2.connect(DATABASE_URL, cursor_factory=RealDictCursor)

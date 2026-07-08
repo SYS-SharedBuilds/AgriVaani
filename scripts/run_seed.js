@@ -1,25 +1,20 @@
-import { Client } from 'pg';
-import * as dotenv from 'dotenv';
-import * as fs from 'fs';
-import * as path from 'path';
+const { Client } = require('pg');
+const dotenv = require('dotenv');
+const fs = require('fs');
+const path = require('path');
 
 dotenv.config({ path: path.join(__dirname, '../.env') });
 
 const client = new Client({
-  connectionString: process.env.DATABASE_URL || 'postgres://agrivaani:agrivaani_dev@localhost:5432/agrivaani'
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
 });
 
 async function runSeed() {
   await client.connect();
-  console.log('Connected to database.');
+  console.log('Connected to database for seeding.');
 
   try {
-    // 1. Run migrations first if tables don't exist
-    const schemaPath = path.join(__dirname, '../db/migrations/001_initial_schema.sql');
-    const schemaSql = fs.readFileSync(schemaPath, 'utf8');
-    await client.query(schemaSql);
-    console.log('Schema created/verified.');
-
     // 2. Insert 5 demo farmers
     const farmersResult = await client.query(`
       INSERT INTO farmers (phone_number, preferred_language, name, village, district, state)
@@ -89,9 +84,9 @@ async function runSeed() {
       await client.query(`
         INSERT INTO health_cases (farmer_id, plot_id, voice_transcript, ai_diagnosis, ai_confidence, severity_estimate, status)
         VALUES 
-          ($1, $1, 'Patte peele pad rahe hain.', 'Nitrogen Deficiency', 0.85, 'medium', 'pending'),
-          ($2, $2, 'Patton par safed dhabbe hain.', 'Powdery Mildew', 0.40, 'high', 'escalated')
-      `, [farmer1.id, farmer2.id]);
+          ($1, $2, 'Patte peele pad rahe hain.', 'Nitrogen Deficiency', 0.85, 'medium', 'pending'),
+          ($3, $4, 'Patton par safed dhabbe hain.', 'Powdery Mildew', 0.40, 'high', 'escalated')
+      `, [farmer1.id, plot1Id, farmer2.id, plot2Id]);
 
       console.log('Plots, Sensor Nodes, Alerts, and Health Cases created.');
     }
