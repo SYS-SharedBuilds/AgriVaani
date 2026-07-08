@@ -42,36 +42,36 @@ AgriVaani is three connected AI systems, reachable entirely by **voice IVR and S
         📞 Toll-free voice call (IVR)      💬 SMS (inbound/outbound)
                      │                              │
            ┌─────────▼──────────┐        ┌──────────▼─────────┐
-           │  Telephony Gateway  │◄───────┤    SMS Gateway      │
-           │  (Twilio / Exotel)  │        │  (Twilio / Exotel)  │
-           └─────────┬───────────┘        └──────────┬──────────┘
-                      └───────────────┬───────────────┘
-                                      ▼
+           │  Telephony Gateway │◄───────┤    SMS Gateway     │
+           │  (Twilio / Exotel) │        │  (Twilio / Exotel) │
+           └─────────┬──────────┘        └──────────┬─────────┘
+                     └───────────────┬───────────────┘
+                                     ▼
                        ┌───────────────────────────┐
-                       │    Orchestration API        │  Node.js / TypeScript
-                       │  session state · routing    │
-                       │  IVR state machine          │
-                       └──────────────┬──────────────┘
+                       │    Orchestration API      │  Node.js / TypeScript
+                       │  session state · routing  │
+                       │  IVR state machine        │
+                       └──────────────┬────────────┘
            ┌──────────────┬───────────┼───────────────┬──────────────┐
            ▼              ▼           ▼               ▼              ▼
    ┌──────────────┐ ┌───────────┐ ┌───────────┐ ┌────────────┐ ┌─────────────┐
-   │ Recommend    │ │ Advisory / │ │ Crop      │ │ Language   │ │ RSK Officer │
-   │ Service      │ │ Alert      │ │ Health    │ │ Provider   │ │ Dashboard   │
-   │ FastAPI +    │ │ Engine     │ │ Diagnosis │ │ Bhashini / │ │ Next.js 14  │
-   │ XGBoost      │ │ Node cron  │ │ Gemini    │ │ Google STT │ │             │
-   │              │ │ + rules    │ │ Vision    │ │ /TTS       │ │             │
-   └──────┬───────┘ └─────┬──────┘ └─────┬─────┘ └────────────┘ └──────┬──────┘
-          │               │              │                             │
-          ▼               ▼              ▼                             │
-   ┌───────────────────────────────────────────────┐                   │
-   │                    Data Layer                   │                   │
-   │  Earth Engine · Soil Health Card · CGWB          │                   │
-   │  IMD / weather · Field hardware (GSM/GPRS + SMS) │                   │
-   └───────────────────────┬─────────────────────────┘                   │
-                            ▼                                            │
-                ┌────────────────────────────┐                          │
-                │ PostgreSQL · Firestore ·    │◄─────────────────────────┘
-                │ BigQuery                    │
+   │ Recommend    │ │ Advisory  │ │ Crop      │ │ Language   │ │ RSK Officer │
+   │ Service      │ │ Alert     │ │ Health    │ │ Provider   │ │ Dashboard   │
+   │ FastAPI +    │ │ Engine    │ │ Diagnosis │ │ Bhashini / │ │ Next.js 14  │
+   │ XGBoost      │ │ Node cron │ │ Gemini    │ │ Google STT │ │             │
+   │              │ │ + rules   │ │ Vision    │ │ /TTS       │ │             │
+   └──────┬───────┘ └─────┬─────┘ └─────┬─────┘ └────────────┘ └──────┬──────┘
+          │               │             │                             │
+          ▼               ▼             ▼                             │
+   ┌──────────────────────────────────────────────────┐               │
+   │                    Data Layer                    │               │
+   │  Earth Engine · Soil Health Card · CGWB          │               │
+   │  IMD / weather · Field hardware (GSM/GPRS + SMS) │               │
+   └───────────────────────┬──────────────────────────┘               │
+                            ▼                                         │
+                ┌────────────────────────────┐                        │
+                │ PostgreSQL · Firestore ·   │◄───────────────────────┘
+                │ BigQuery                   │
                 └────────────────────────────┘
 ```
 
@@ -79,13 +79,13 @@ AgriVaani is three connected AI systems, reachable entirely by **voice IVR and S
 
 ```
    🌱 Field                                    📡 GSM / GPRS
-┌─────────────────┐                     ┌──────────────────────┐
-│ Arduino Mega 2560 │ ── pH readings ──► │ Orchestration API     │
-│  + SIM800L GSM     │                    │ /v1/sensors/:id/... │
-│  + pH sensor        │ ◄── commands ──── │                      │
-│  + 4-ch relay        │                    └──────────────────────┘
-│    ├─ irrigation pump                              │
-│    ├─ fertigation valve A                          ▼
+┌─────────────────────┐                    ┌───────────────────────┐
+│ Arduino Mega 2560   │ ── pH readings ──► │ Orchestration API     │
+│  + SIM800L GSM      │                    │ /v1/sensors/:id/...   │
+│  + pH sensor        │ ◄── commands ────  │                       │
+│  + 4-ch relay       │                    └───────────────────────┘
+│    ├─ irrigation pump                                │
+│    ├─ fertigation valve A                            ▼
 │    ├─ fertigation valve B                  Alert Engine (cron)
 │    └─ spare                                fuses forecast + soil signal
 │  safety: 30-min max runtime,               → voice + SMS alert
@@ -236,6 +236,6 @@ Built for Build with AI: Code for Communities (Google Cloud Hackathon)
 
 <div align="center">
 
-*Krishi Buddhimatta, Har Kisan Tak — Agricultural intelligence, to every farmer.*
+*Krishi Buddhimatta, Har Kisan Tak Agricultural intelligence, to every farmer.*
 
 </div>
