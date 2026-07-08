@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -21,11 +22,8 @@ export default function NavBar() {
         padding: '1.1rem 1.75rem', marginBottom: '1.5rem',
       }}
     >
-      <div>
-        <h1 className="font-display" style={{ fontSize: 24, fontWeight: 600, color: 'var(--forest)', margin: 0 }}>
-          AgriVaani
-        </h1>
-        <p style={{ fontSize: 12.5, color: 'var(--ink-soft)', margin: '2px 0 0' }}>Rythu Seva Kendra console</p>
+      <div style={{ display: 'flex', alignItems: 'center', height: 42 }}>
+        <Image src="/logo.png" alt="AgriVaani Logo" width={180} height={54} priority style={{ objectFit: 'contain', height: '100%', width: 'auto' }} />
       </div>
 
       <nav style={{ display: 'flex', gap: 6 }}>
