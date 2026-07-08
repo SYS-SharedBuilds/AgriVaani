@@ -114,7 +114,7 @@ export default function SettingsPage() {
         <div className="glass" style={{ padding: '1.4rem 1.6rem' }}>
           <SectionTitle>System status</SectionTitle>
           <p style={{ fontSize: 12, color: 'var(--ink-soft)', margin: '6px 0 14px' }}>
-            Live connection state for AgriVaani's backend services. A "not configured" service falls back to a demo-safe mock so the app never breaks.
+            Live connection state for AgriVaani&apos;s backend services. A &quot;not configured&quot; service falls back to a demo-safe mock so the app never breaks.
           </p>
           <StatusRow label="Telephony (Twilio / Exotel)" status={status.telephonyProvider} />
           <StatusRow label="Language (Bhashini / Google STT-TTS)" status={status.languageProvider} />

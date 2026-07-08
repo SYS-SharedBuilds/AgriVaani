@@ -96,7 +96,7 @@ export default function FarmersPage() {
 
         {filtered.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '3rem', fontSize: 13.5, color: 'var(--ink-soft)' }}>
-            No farmers match "{query}".
+            No farmers match &quot;{query}&quot;.
           </div>
         ) : (
           filtered.map((f) => {
