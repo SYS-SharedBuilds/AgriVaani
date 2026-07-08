@@ -45,7 +45,7 @@ AgriVaani is three connected AI systems, reachable entirely by **voice IVR and S
            │  Telephony Gateway │◄───────┤    SMS Gateway     │
            │  (Twilio / Exotel) │        │  (Twilio / Exotel) │
            └─────────┬──────────┘        └──────────┬─────────┘
-                     └───────────────┬───────────────┘
+                     └───────────────┬──────────────┘
                                      ▼
                        ┌───────────────────────────┐
                        │    Orchestration API      │  Node.js / TypeScript
