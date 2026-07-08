@@ -1,11 +1,12 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 import path from 'path';
 import { ingestTelemetry, getCommands, getAlerts } from './controllers/sensor';
 import { evaluateAlerts } from './jobs/alertEngine';
 
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
+
 
 const app = express();
 app.use(cors());
@@ -33,6 +34,10 @@ app.get('/v1/health-cases/:id', getHealthCase);
 import { handleInboundCall, handleVoiceGather } from './controllers/voice';
 app.post('/v1/voice/inbound', handleInboundCall);
 app.post('/v1/voice/gather', handleVoiceGather);
+
+// TTS
+import { synthesizeSpeech } from './controllers/tts';
+app.post('/v1/tts', synthesizeSpeech);
 
 // RSK Officer Dashboard
 app.get('/v1/rsk/queue', getRskQueue);
