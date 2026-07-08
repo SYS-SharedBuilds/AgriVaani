@@ -1,11 +1,11 @@
 <div align="center">
 
-# 🌾 AgriVaani
+# 🌾 Krishi Vaani
 ### The Voice of the Farm
 
-**AI-powered voice & SMS agricultural intelligence for India's small and marginal farmers — in their own language, on the phone they already own.**
+**AI-powered voice & SMS agricultural intelligence for India's small and marginal farmers in their own language, on the phone they already own.**
 
-Built for **Build with AI: Code for Communities** — a Google Cloud hackathon where every problem statement was written by an MP's office, and the best solutions get piloted in a real constituency.
+Built for **Build with AI: Code for Communities**  a Google Cloud hackathon where every problem statement was written by an MP's office, and the best solutions get piloted in a real constituency.
 
 [![Status](https://img.shields.io/badge/status-hackathon--prototype-orange)]()
 [![Stack](https://img.shields.io/badge/backend-Node.js%20%2B%20FastAPI-blue)]()
