@@ -23,8 +23,21 @@ export default function Home() {
     } catch {
       console.error('Failed to fetch cases, using mock data');
       setCases([
-        { id: '1', farmer_name: 'Ramesh Kumar', district: 'Medak', severity_estimate: 'high', ai_diagnosis: 'Severe Leaf Blight', created_at: new Date().toISOString() },
-        { id: '2', farmer_name: 'Sunita Devi', district: 'Hyderabad', severity_estimate: 'medium', ai_diagnosis: 'Mild pest infestation', created_at: new Date().toISOString() }
+        { id: '1', farmer_name: 'Ramesh Kumar', district: 'Medak', severity_estimate: 'high', ai_diagnosis: 'Severe Leaf Blight detected on cotton crop. Immediate fungicide application recommended.', created_at: new Date().toISOString() },
+        { id: '2', farmer_name: 'Sunita Devi', district: 'Hyderabad', severity_estimate: 'medium', ai_diagnosis: 'Mild pest infestation (Aphids) in tomato field.', created_at: new Date().toISOString() },
+        { id: '3', farmer_name: 'Lakshman Rao', district: 'Nizamabad', severity_estimate: 'low', ai_diagnosis: 'Nutrient deficiency (Nitrogen) observed in paddy.', created_at: new Date().toISOString() },
+        { id: '4', farmer_name: 'Kavita Reddy', district: 'Karimnagar', severity_estimate: 'high', ai_diagnosis: 'Fall Armyworm attack on maize. Rapid spread likely.', created_at: new Date().toISOString() },
+        { id: '5', farmer_name: 'Srinivas Goud', district: 'Warangal', severity_estimate: 'medium', ai_diagnosis: 'Early signs of Powdery Mildew on chilli plants.', created_at: new Date().toISOString() },
+        { id: '6', farmer_name: 'Venkat Sai', district: 'Khammam', severity_estimate: 'high', ai_diagnosis: 'Pink Bollworm infestation in cotton. High economic damage risk.', created_at: new Date().toISOString() },
+        { id: '7', farmer_name: 'Anjali Sharma', district: 'Adilabad', severity_estimate: 'low', ai_diagnosis: 'Water stress detected. Irrigation required.', created_at: new Date().toISOString() },
+        { id: '8', farmer_name: 'Mohammad Ali', district: 'Nalgonda', severity_estimate: 'medium', ai_diagnosis: 'Bacterial blight symptoms in soybean crop.', created_at: new Date().toISOString() },
+        { id: '9', farmer_name: 'Prasad Verma', district: 'Mahbubnagar', severity_estimate: 'high', ai_diagnosis: 'Locust swarm warning in adjacent taluk. Preventative measures advised.', created_at: new Date().toISOString() },
+        { id: '10', farmer_name: 'Geeta Kumari', district: 'Sangareddy', severity_estimate: 'low', ai_diagnosis: 'Healthy crop development. No immediate action required.', created_at: new Date().toISOString() },
+        { id: '11', farmer_name: 'Narasimha Chary', district: 'Siddipet', severity_estimate: 'medium', ai_diagnosis: 'Whitefly cluster found on brinjal leaves.', created_at: new Date().toISOString() },
+        { id: '12', farmer_name: 'Priyanka Das', district: 'Ranga Reddy', severity_estimate: 'high', ai_diagnosis: 'Root rot disease spreading rapidly in groundnut field.', created_at: new Date().toISOString() },
+        { id: '13', farmer_name: 'Venkatesh Naik', district: 'Medchal', severity_estimate: 'low', ai_diagnosis: 'Minor zinc deficiency. Add micronutrient spray.', created_at: new Date().toISOString() },
+        { id: '14', farmer_name: 'Bhavani Shankar', district: 'Yadadri Bhuvanagiri', severity_estimate: 'medium', ai_diagnosis: 'Stem borer damage observed in paddy fields.', created_at: new Date().toISOString() },
+        { id: '15', farmer_name: 'Arun Kumar', district: 'Jagtial', severity_estimate: 'high', ai_diagnosis: 'Unseasonal heavy rain forecast. Harvest mature crops immediately.', created_at: new Date().toISOString() }
       ]);
     }
     setLoading(false);
