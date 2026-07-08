@@ -228,7 +228,7 @@ AgriVaani is built so that **every mocked component sits behind the same interfa
 
 ## Team
 
-**Team AgriVaani** — Indore
+**SSY – Solve. Scale. Yield.** — Indore
 Built for Build with AI: Code for Communities (Google Cloud Hackathon)
 
 ---
