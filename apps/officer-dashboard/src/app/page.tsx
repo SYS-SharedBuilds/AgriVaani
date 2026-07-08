@@ -142,7 +142,7 @@ export default function TriagePage() {
   );
 }
 
-export function StatPill({ label, value, accent }: { label: string; value: number; accent: string }) {
+function StatPill({ label, value, accent }: { label: string; value: number; accent: string }) {
   return (
     <div className="glass" style={{ padding: '1.1rem 1.4rem' }}>
       <div style={{ fontSize: 12, color: 'var(--ink-soft)', marginBottom: 4 }}>{label}</div>
@@ -151,7 +151,7 @@ export function StatPill({ label, value, accent }: { label: string; value: numbe
   );
 }
 
-export function EmptyState({ title, body }: { title: string; body: string }) {
+function EmptyState({ title, body }: { title: string; body: string }) {
   return (
     <div style={{ textAlign: 'center', padding: '3.5rem 2rem' }}>
       <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'rgba(63,122,92,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px', fontSize: 22 }}>
