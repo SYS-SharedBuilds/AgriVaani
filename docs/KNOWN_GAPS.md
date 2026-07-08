@@ -3,9 +3,9 @@
 This document outlines all components in AgriVaani that are currently mocked or stubbed out, and the specific environment variables required to make them production-ready.
 
 ### 1. Telephony & SMS
-- **Status:** Mocked (logs to console).
-- **Reason:** Requires active telecom credits.
-- **How to wire:** Provide real `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, and `TWILIO_PHONE_NUMBER` in `.env`. The `TwilioProvider` will automatically switch from mocking to live HTTP calls to Twilio.
+- **Status:** Mocked (logs to console), with a frontend `FarmerSimChat` simulator.
+- **Reason:** Requires active telecom credits. `FarmerSimChat` exists only because placing a live call for every demo run is impractical.
+- **How to wire:** Provide real `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, and `TWILIO_PHONE_NUMBER` in `.env`. The `TwilioProvider` will automatically switch from mocking to live HTTP calls to Twilio. `FarmerSimChat` should be removed or clearly gated behind a demo-only flag before any real pilot.
 
 ### 2. Language Translation & STT/TTS (Bhashini)
 - **Status:** Mocked.

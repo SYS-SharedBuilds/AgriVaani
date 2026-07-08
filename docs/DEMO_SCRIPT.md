@@ -41,15 +41,10 @@
 
 ### Step 2: Crop Health Logging & RSK Triage (1 Minute)
 *Goal: Show the multimodal AI diagnosis and human-in-the-loop escalation.*
-1. Explain that a farmer sends an SMS or MMS of a sick plant.
-2. Hit the `/v1/health-cases` POST endpoint via Postman or Curl:
-   ```bash
-   curl -X POST http://localhost:3000/v1/health-cases \
-     -H 'Content-Type: application/json' \
-     -d '{"farmer_id": "UUID", "plot_id": "UUID", "voice_transcript": "Patton par safed dhabbe hain."}'
-   ```
-3. Show the Next.js Officer Dashboard at `http://localhost:3001`.
-4. Point out that because the Gemini confidence was low (e.g. < 0.6) or severity was high, the escalation rule *in code* flagged it for the RSK officer.
+1. Explain that a farmer sends an SMS, MMS, or voice message about a sick plant.
+2. Open the "Simulate Farmer Call" (FarmerSimChat) on the dashboard. Note that this component is a scripted stand-in for the actual voice/SMS channel for demo convenience.
+3. Type a message like "half my tomato plants have collapsed overnight". This hits the actual `/v1/health-cases` API. 
+4. Point out that the escalation decision comes from the real Gemini diagnosis + coded rule (`needs_expert = confidence < 0.6 OR severity === "high"`), not a turn counter. Because the severity was high, it escalates to the RSK officer.
 5. Click "Resolve" on the dashboard UI to show the real-time update.
 
 ### Step 3: Hardware & Alert Engine (1 Minute)
